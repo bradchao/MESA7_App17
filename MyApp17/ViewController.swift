@@ -61,7 +61,8 @@ class ViewController: UIViewController {
             
             if let outputStream = OutputStream(url: fileURL, append: true) {
                 outputStream.open()
-                let text = "some text\n"
+                let rand = Int(arc4random_uniform(49)) + 1
+                let text = "some text: \(rand)\n"
                 let bytesWritten = outputStream.write(text)
                 if bytesWritten < 0 { print("write failure") }
                 outputStream.close()
@@ -75,6 +76,20 @@ class ViewController: UIViewController {
     
     
     @IBAction func test5(_ sender: Any) {
+        
+        let file2 = docDir + "/brad03.txt"
+        let rand = Int(arc4random_uniform(49)) + 1
+        let cont = "1234567\n7654321: \(rand)\n"
+        
+        do{
+            try cont.write(toFile: file2, atomically: false, encoding: .utf8)
+            
+        }catch {
+            print(error)
+        }
+        
+        
+        
     }
     
     @IBAction func test6(_ sender: Any) {
@@ -113,7 +128,6 @@ class ViewController: UIViewController {
 
 
 }
-
 extension OutputStream {
     
     /// Write `String` to `OutputStream`
@@ -151,5 +165,4 @@ extension OutputStream {
     }
     
 }
-
 
